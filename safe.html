@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Astrashe - Safe Route Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ecda", // Teal accent
+                        "secondary": "#a855f7", // Purple accent
+                        "background-dark": "#0A0E1A", // Midnight blue base
+                        "safe-green": "#22c55e",
+                        "route-purple": "#a855f7"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            .route-glow {
+                filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
+            }
+            .map-container {
+                background: linear-gradient(135deg, #0A0E1A 0%, #1a1f35 100%);
+                position: relative;
+                overflow: hidden;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display text-slate-100 antialiased overflow-hidden">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<div class="h-11 w-full flex items-center justify-between px-6 z-30">
+<span class="text-xs font-semibold">9:41</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-xs">wifi</span>
+<span class="material-symbols-outlined text-xs">battery_full</span>
+</div>
+</div>
+<div class="absolute top-11 left-0 right-0 z-20 flex items-center justify-between p-4 bg-gradient-to-b from-background-dark/80 to-transparent">
+<button class="flex size-10 items-center justify-center rounded-full bg-slate-800/40 backdrop-blur-md text-slate-100">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</button>
+<div class="flex flex-col items-center">
+<h1 class="text-sm font-bold tracking-tight">Astrashe Safe Routes</h1>
+<div class="flex items-center gap-1">
+<span class="size-1.5 rounded-full bg-primary"></span>
+<p class="text-[10px] uppercase tracking-widest text-primary font-semibold">Astrashe Shield Active</p>
+</div>
+</div>
+<button class="flex size-10 items-center justify-center rounded-full bg-slate-800/40 backdrop-blur-md text-slate-100">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+<div class="relative flex-1 map-container">
+<img alt="Detailed dark mode city map" class="absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGz_UrhRRitJoiSntS2_ZdErrQpGHOp4WEUqkKTAGxwwUbiNEdgiIgBN6dqD7BnSDR3ZeiWTFTqAw9KKj-qI6gPNi3kCBcjyYKpGFE6cRzrgjXSFI5H6Kc3rmiDMDntdlKotWWGQ0l5VapQgWMCXZ3bZh6YOXYSFrKFnnspmZJlU44LvmupE9783ugLyWUrEzqUHoB47JFeHmkA5ripGU2pp20dnAhC5J6NRGIohjPEQh0fJwg7h96DIiRr-0icaE9-3q5zXHp3w"/>
+<div class="absolute top-1/4 right-1/3 z-10 flex flex-col items-center">
+<div class="relative">
+<div class="absolute -inset-2 bg-primary/20 rounded-full"></div>
+<div class="relative bg-background-dark border-2 border-primary size-8 rounded-full flex items-center justify-center shadow-lg shadow-primary/30">
+<span class="material-symbols-outlined text-primary text-sm">home</span>
+</div>
+</div>
+<div class="mt-2 bg-background-dark/90 backdrop-blur px-2 py-1 rounded text-[10px] border border-primary/20">Home</div>
+</div>
+<svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 800">
+<path d="M 100 700 Q 150 500 120 400 T 260 200" fill="none" opacity="0.6" stroke="#a855f7" stroke-dasharray="8 4" stroke-width="4"></path>
+<path d="M 100 700 Q 50 600 80 450 T 260 200" fill="none" opacity="0.4" stroke="#13ecda" stroke-dasharray="4 4" stroke-width="3"></path>
+<path class="route-glow" d="M 100 700 Q 200 650 250 550 T 260 200" fill="none" stroke="#22c55e" stroke-linecap="round" stroke-width="6"></path>
+</svg>
+<div class="absolute top-[45%] left-1/2 -translate-x-1/2 z-10">
+<div class="flex items-center gap-2 bg-safe-green px-3 py-1.5 rounded-full shadow-lg shadow-safe-green/40">
+<span class="material-symbols-outlined text-white text-xs" style="font-variation-settings: 'FILL' 1">verified</span>
+<span class="text-white text-xs font-bold leading-none">9.8/10 Safe</span>
+</div>
+<div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-safe-green mx-auto"></div>
+</div>
+<div class="absolute bottom-1/4 left-1/4 z-10">
+<div class="bg-white size-5 rounded-full border-4 border-primary shadow-[0_0_15px_rgba(19,236,218,0.8)]"></div>
+</div>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-3">
+<button class="size-11 rounded-xl bg-background-dark/80 backdrop-blur border border-slate-700/50 flex items-center justify-center text-slate-100 shadow-xl">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<button class="size-11 rounded-xl bg-background-dark/80 backdrop-blur border border-slate-700/50 flex items-center justify-center text-slate-100 shadow-xl">
+<span class="material-symbols-outlined">layers</span>
+</button>
+</div>
+<button class="absolute right-4 bottom-[380px] size-14 rounded-full bg-red-600 flex items-center justify-center text-white shadow-[0_0_25px_rgba(220,38,38,0.5)] z-20">
+<span class="material-symbols-outlined text-3xl font-bold">sos</span>
+</button>
+</div>
+<div class="relative z-30 bg-background-dark border-t border-slate-800/50 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.6)] px-6 pb-10 pt-3">
+<div class="flex justify-center mb-5">
+<div class="h-1.5 w-10 rounded-full bg-slate-700/50"></div>
+</div>
+<div class="flex gap-2 mb-6 p-1.5 bg-slate-900/80 rounded-2xl">
+<button class="flex-1 py-3 rounded-xl bg-safe-green/20 text-safe-green border border-safe-green/30 text-xs font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">security</span>
+                    Safest
+                </button>
+<button class="flex-1 py-3 rounded-xl text-slate-400 text-xs font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">speed</span>
+                    Fastest
+                </button>
+<button class="flex-1 py-3 rounded-xl text-slate-400 text-xs font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">group</span>
+                    Crowded
+                </button>
+</div>
+<div class="space-y-6">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="text-2xl font-black text-white">Safest Route</h2>
+<span class="bg-safe-green/20 text-safe-green text-[10px] px-2 py-0.5 rounded-full font-bold border border-safe-green/30 uppercase">Recommended</span>
+</div>
+<div class="flex items-center gap-2 mt-1.5">
+<span class="text-safe-green font-bold text-lg leading-none">12 mins</span>
+<span class="size-1 rounded-full bg-slate-600"></span>
+<span class="text-slate-400 text-sm">1.4 miles</span>
+</div>
+</div>
+<div class="bg-primary/10 px-3 py-2 rounded-2xl border border-primary/20 flex flex-col items-center gap-0.5">
+<span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+<span class="text-primary text-[9px] font-bold uppercase tracking-tight">Well-lit</span>
+</div>
+</div>
+<div class="bg-secondary/5 border border-secondary/10 rounded-[1.25rem] p-4 flex gap-4">
+<div class="bg-secondary/20 size-12 rounded-2xl flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-2xl">shield_person</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-sm font-bold text-slate-200">Astrashe Intelligence</p>
+<p class="text-xs text-slate-400 leading-relaxed mt-1">This route features well-lit streets and high foot traffic. 48 active Guardians are nearby.</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 rounded-2xl border border-slate-800/80 bg-slate-900/40">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-xl bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-xl">electric_bolt</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-200">Fastest Route</p>
+<p class="text-xs text-slate-500">9 mins • Lower visibility</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs font-bold text-slate-400">8.2/10</span>
+<span class="text-[9px] text-slate-600 font-bold uppercase">Safety</span>
+</div>
+</div>
+<div class="pt-2">
+<button class="w-full h-16 bg-primary text-background-dark rounded-2xl font-black text-lg shadow-[0_8px_30px_rgb(19,236,218,0.3)] flex items-center justify-center gap-3 active:scale-[0.97] transition-all">
+<span>START SAFE JOURNEY</span>
+<span class="material-symbols-outlined font-black">navigation</span>
+</button>
+</div>
+</div>
+</div>
+<nav class="bg-background-dark border-t border-slate-800/50 flex items-center justify-around px-6 pt-3 pb-8 z-40">
+<a class="flex flex-col items-center gap-1.5 text-primary" href="#">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1">explore</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Explore</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 text-slate-500" href="#">
+<span class="material-symbols-outlined text-[28px]">shield_moon</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Guardians</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 text-slate-500" href="#">
+<div class="relative">
+<span class="material-symbols-outlined text-[28px]">notifications</span>
+<span class="absolute top-0 right-0 size-2 bg-red-500 rounded-full ring-2 ring-background-dark"></span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Alerts</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 text-slate-500" href="#">
+<span class="material-symbols-outlined text-[28px]">settings</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Settings</span>
+</a>
+</nav>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-slate-800 rounded-full z-50"></div>
+</div>
+
+</body></html>
