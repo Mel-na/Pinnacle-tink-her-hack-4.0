@@ -6,7 +6,7 @@
 
 ## Basic Details
 
-### Team Name: [Pinnacle] chgchcg
+### Team Name: [Pinnacle] 
 
 ### Team Members
 - Member 1: [Melna Rappai] - [ICCS COLLEGE OF ENGINEERING AND MANAGEMENT]
@@ -16,14 +16,11 @@
 [mention your project hosted link here]
 
 ### Project Description
-[2-3 lines about what your project does]
-
+[Astrashe is a web-based safe routing assistant designed to protect users navigating unfamiliar or potentially dangerous areas. It provides real-time secure navigation and features an instant "Danger Encountered" SOS system that immediately locates and routes users to the nearest verified safe havens.]
 ### The Problem statement
-[What problem are you solving?]
-
+[When individuals travel through unfamiliar or unsafe environments, they often lack knowledge of secure routes. In moments of distress or imminent danger, panic makes it incredibly difficult to manually search for, locate, and navigate to the nearest reliable safe zones (such as police stations or hospitals), delaying critical help.]
 ### The Solution
-[How are you solving it?]
-
+[Astrashe acts as a proactive digital guardian. It allows users to search for their destination and generates a clear road route using mapping APIs. If a user feels threatened during their journey, a one-touch "Danger Encountered" button instantly queries geographic databases to find the closest police stations, hospitals, and women's help desks, providing immediate escape navigation and triggering simulated SOS alerts to trusted guardians.]
 ---
 
 ## Technical Details
@@ -31,25 +28,23 @@
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+- Languages used: [JavaScript, Python, HTML5,CSS3]
+- Frameworks used: [FLASK,TALIWIND CSS]
+- Libraries used: [Leaflet.js,OSRM API,Nomination API]
+- Tools used: [VS Code, Git, Github]
 
 **For Hardware:**
-- Main components: [List main components]
-- Specifications: [Technical specifications]
-- Tools required: [List tools needed]
+- No Hardware used.
 
 ---
 
 ## Features
 
 List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
+- Interactive Safe Routing: Dynamic map routing that draws real road paths from the user's current location to their searched destination.
+- One-Touch Danger/SOS Protocol: An immediate override button that interrupts the journey and reroutes the user to verified safe zones if they feel threatened.
+- Dynamic Safe Haven Locator: Uses real-time geographic APIs to scan the user's specific location for nearby Police Stations, General Hospitals, and Help Desks, including an offline-ready fallback system.
+- Trusted Guardian Alerts: A system designed to automatically notify pre-set emergency contacts with live location tracking when the SOS protocol is triggered.
 
 ---
 
@@ -59,37 +54,39 @@ List the key features of your project:
 
 #### Installation
 ```bash
-[Installation commands - e.g., npm install, pip install -r requirements.txt]
+[# Clone the repository
+git clone [Insert your GitHub Repo URL here]
+cd [Your Repo Folder Name]
+
+# Create a virtual environment (Recommended)
+python -m venv venv
+# Windows: venv\Scripts\activate
+# Mac/Linux: source venv/bin/activate
+
+# Install the required dependencies
+pip install flask]
 ```
 
 #### Run
 ```bash
-[Run commands - e.g., npm start, python app.py]
+[# Start the Flask development server
+python app.py
+
+# The application will be available at http://127.0.0.1:5000]
 ```
-
-### For Hardware:
-
-#### Components Required
-[List all components needed with specifications]
-
-#### Circuit Setup
-[Explain how to set up the circuit]
-
----
 
 ## Project Documentation
 
 ### For Software:
 
 #### Screenshots (Add at least 3)
-
-![Screenshot1](Add screenshot 1 here with proper name)
+[[alt text](image-2.png)]
 *Add caption explaining what this shows*
 
-![Screenshot2](Add screenshot 2 here with proper name)
+[[alt text](image-1.png)]
 *Add caption explaining what this shows*
 
-![Screenshot3](Add screenshot 3 here with proper name)
+[alt text](image.png)
 *Add caption explaining what this shows*
 
 #### Diagrams
@@ -101,8 +98,8 @@ List the key features of your project:
 
 **Application Workflow:**
 
-![Workflow](docs/workflow.png)
-*Add caption explaining your workflow*
+[User logs in -> Searches Destination -> App generates OSRM route -> User travels. IF safe: arrives at destination. IF danger encountered: User clicks SOS -> App fetches Nominatim safe zones -> User selects safe zone -> App navigates to safety & alerts Guardians.]
+
 
 ---
 
@@ -116,18 +113,6 @@ List the key features of your project:
 ![Schematic](Add your schematic diagram here)
 *Add caption explaining the schematic*
 
-#### Build Photos
-
-![Team](Add photo of your team here)
-
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ---
 
@@ -361,7 +346,7 @@ python script.py -v --format json data.json
 ## Project Demo
 
 ### Video
-[Add your demo video link here - YouTube, Google Drive, etc.]
+[https://drive.google.com/file/d/1pXGgVksoGo0bH_gMEX0xSnZcDo1_9muu/view?usp=sharing.]
 
 *Explain what the video demonstrates - key features, user flow, technical highlights*
 
@@ -400,11 +385,8 @@ If you used AI tools during development, document them here for transparency:
 
 ## Team Contributions
 
-- [Name 1]: [Specific contributions - e.g., Frontend development, API integration, etc.]
-- [Name 2]: [Specific contributions - e.g., Backend development, Database design, etc.]
-- [Name 3]: [Specific contributions - e.g., UI/UX design, Testing, Documentation, etc.]
-
----
+- [Melna Rappai]: [ Frontend UI development with Tailwind CSS, integrating Leaflet maps, debugging the search routing]
+- [Anupama P.A]: [ Flask backend setup, API integration (OSRM/Nominatim), implementing the SOS fallback logic and project documentation.]
 
 ## License
 
