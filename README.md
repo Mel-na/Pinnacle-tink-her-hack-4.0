@@ -2,15 +2,15 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Project Name] 🎯
+# [Astrashe] 🎯
 
 ## Basic Details
 
-### Team Name: [Name]
+### Team Name: [Pinnacle]
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: [Melna Rappai] - [ICCS COLLEGE OF ENGINEERING AND MANAGEMENT]
+- Member 2: [Anupama P A] - [ICCS COLLEGE OF ENGINEERING AND MANAGEMENT]
 
 ### Hosted Project Link
 [mention your project hosted link here]
