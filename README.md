@@ -6,7 +6,7 @@
 
 ## Basic Details
 
-### Team Name: [Pinnacle]
+### Team Name: [Pinnacle] chgchcg
 
 ### Team Members
 - Member 1: [Melna Rappai] - [ICCS COLLEGE OF ENGINEERING AND MANAGEMENT]
