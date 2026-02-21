@@ -1,0 +1,12 @@
+{
+  "name": "pinnacle-tink-her-hack-4.0",
+  "version": "1.0.0",
+  "description": "Astrashe Safe Places Web App",
+  "main": "app.py",
+  "scripts": {
+    "start": "python app.py"
+  },
+  "author": "[Your Name or Team]",
+  "license": "MIT",
+  "dependencies": {}
+}

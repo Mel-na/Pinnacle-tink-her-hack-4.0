@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Astrashe - Safe Route</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script id="tailwind-config">
+        tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary": "#13ecda", "background-dark": "#0A0E1A" }, fontFamily: { "display": ["Inter", "sans-serif"] } } } }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { min-height: max(884px, 100dvh); }
+    </style>
+</head>
+
+<body class="bg-background-dark font-display text-slate-100 antialiased overflow-hidden">
+    <div class="relative flex h-screen w-full flex-col overflow-hidden">
+        
+        <div class="absolute top-11 left-0 right-0 z-20 flex items-center justify-between p-4 bg-gradient-to-b from-background-dark/80 to-transparent pointer-events-none">
+            <a href="/home" class="pointer-events-auto flex size-10 items-center justify-center rounded-full bg-slate-800/80 backdrop-blur-md text-slate-100">
+                <span class="material-symbols-outlined">arrow_back_ios_new</span>
+            </a>
+            <div class="flex flex-col items-center bg-background-dark/80 px-4 py-1 rounded-full pointer-events-auto">
+                <h1 class="text-sm font-bold tracking-tight">Routing to: <span class="text-primary">{{ request.args.get('destination', 'Select Destination') }}</span></h1>
+                <div class="flex items-center gap-1">
+                    <span class="size-1.5 rounded-full bg-primary"></span>
+                    <p class="text-[10px] uppercase tracking-widest text-primary font-semibold">Astrashe Shield Active</p>
+                </div>
+            </div>
+            <button class="pointer-events-auto flex size-10 items-center justify-center rounded-full bg-slate-800/80 backdrop-blur-md text-slate-100">
+                <span class="material-symbols-outlined">share</span>
+            </button>
+        </div>
+
+        <div id="routeMap" class="relative flex-1 bg-slate-900 z-0"></div>
+
+        <div class="pt-2 px-4 mb-4 flex flex-col gap-3 z-30 bg-background-dark">
+            <button onclick="alert('Safe Journey Started! Live tracking initiated.');" class="w-full h-14 bg-primary text-background-dark rounded-2xl font-black text-lg shadow-[0_8px_30px_rgb(19,236,218,0.3)] flex items-center justify-center gap-3">
+                <span>START SAFE JOURNEY</span>
+                <span class="material-symbols-outlined font-black">navigation</span>
+            </button>
+            
+            <a href="/safeplace?destination={{ request.args.get('destination', '') }}" class="w-full h-14 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-black text-lg shadow-[0_8px_30px_rgb(220,38,38,0.3)] flex items-center justify-center gap-3 border border-red-500">
+                <span>DANGER ENCOUNTERED</span>
+                <span class="material-symbols-outlined font-black">warning</span>
+            </a>
+        </div>
+
+        <nav class="bg-background-dark border-t border-slate-800/50 flex items-center justify-around px-6 pt-3 pb-8 z-40">
+            <a class="flex flex-col items-center gap-1.5 text-primary" href="/safe"><span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1">explore</span><span class="text-[10px] font-bold uppercase tracking-tighter">Explore</span></a>
+            <a class="flex flex-col items-center gap-1.5 text-slate-500" href="/guardians"><span class="material-symbols-outlined text-[28px]">shield_moon</span><span class="text-[10px] font-bold uppercase tracking-tighter">Guardians</span></a>
+            <a class="flex flex-col items-center gap-1.5 text-slate-500" href="/alerts"><span class="material-symbols-outlined text-[28px]">notifications</span><span class="text-[10px] font-bold uppercase tracking-tighter">Alerts</span></a>
+            <a class="flex flex-col items-center gap-1.5 text-slate-500" href="/settings"><span class="material-symbols-outlined text-[28px]">settings</span><span class="text-[10px] font-bold uppercase tracking-tighter">Settings</span></a>
+        </nav>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('routeMap', {zoomControl: false}).setView([12.0833, 75.2667], 7);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+        // Current Location (Pariyaram, Kerala)
+        var startLat = 12.0833;
+        var startLng = 75.2667;
+        L.circleMarker([startLat, startLng], {color: '#13ecda', radius: 6}).addTo(map).bindPopup("Current Location (Pariyaram)").openPopup();
+
+        var destination = "{{ request.args.get('destination', '') }}";
+        
+        if (destination) {
+            // Find destination coordinates inside Kerala
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(destination)}, Kerala, India`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var endLat = data[0].lat;
+                        var endLng = data[0].lon;
+                        L.marker([endLat, endLng]).addTo(map).bindPopup(destination).openPopup();
+                        
+                        // Draw real driving route using OSRM
+                        fetch(`https://router.project-osrm.org/route/v1/driving/${startLng},${startLat};${endLng},${endLat}?overview=full&geometries=geojson`)
+                            .then(res => res.json())
+                            .then(routeData => {
+                                if(routeData.routes && routeData.routes.length > 0) {
+                                    var routeLine = L.geoJSON(routeData.routes[0].geometry, {
+                                        style: { color: '#13ecda', weight: 5, opacity: 0.8 }
+                                    }).addTo(map);
+                                    map.fitBounds(routeLine.getBounds(), {padding: [50, 50]});
+                                }
+                            });
+                    } else {
+                        alert("Could not locate that destination in Kerala. Please try another city.");
+                    }
+                });
+        }
+    </script>
+</body>
+</html>

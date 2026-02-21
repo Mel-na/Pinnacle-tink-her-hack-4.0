@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Settings - Astrashe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-[#102220] text-slate-100 min-h-screen p-6 font-sans">
+    
+    <div class="flex items-center gap-4 mb-8">
+        <a href="/home" class="p-2 bg-white/10 rounded-full active:scale-95"><span class="material-symbols-outlined">arrow_back</span></a>
+        <h1 class="text-2xl font-bold">Settings</h1>
+    </div>
+
+    <div class="bg-[#0c1a19] border border-white/10 p-5 rounded-2xl mb-6 flex items-center gap-4">
+        <div class="w-16 h-16 bg-[#13ecda]/20 rounded-full flex items-center justify-center border border-[#13ecda]/50">
+            <span class="material-symbols-outlined text-[#13ecda] text-3xl">person</span>
+        </div>
+        <div>
+            <h2 class="text-lg font-bold">Admin User</h2>
+            <p class="text-sm text-slate-400">admin@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="space-y-4">
+        <div class="bg-[#0c1a19] border border-white/10 p-4 rounded-xl flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#13ecda]">location_on</span>
+                <div>
+                    <p class="font-bold">Live Location Sharing</p>
+                    <p class="text-xs text-slate-400">Share location with Guardians on SOS</p>
+                </div>
+            </div>
+            <div class="w-12 h-6 bg-[#13ecda] rounded-full relative cursor-pointer">
+                <div class="absolute right-1 top-1 w-4 h-4 bg-[#102220] rounded-full"></div>
+            </div>
+        </div>
+
+        <div class="bg-[#0c1a19] border border-white/10 p-4 rounded-xl flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#13ecda]">notifications_active</span>
+                <div>
+                    <p class="font-bold">Push Notifications</p>
+                    <p class="text-xs text-slate-400">Alerts for route deviations</p>
+                </div>
+            </div>
+            <div class="w-12 h-6 bg-[#13ecda] rounded-full relative cursor-pointer">
+                <div class="absolute right-1 top-1 w-4 h-4 bg-[#102220] rounded-full"></div>
+            </div>
+        </div>
+
+        <button class="w-full bg-[#0c1a19] border border-white/10 p-4 rounded-xl flex items-center justify-between text-left active:scale-95 transition-transform">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-slate-400">lock</span>
+                <p class="font-bold">Privacy Policy & Data</p>
+            </div>
+            <span class="material-symbols-outlined text-slate-500">chevron_right</span>
+        </button>
+    </div>
+
+    <div class="mt-8">
+        <a href="/logout" class="w-full bg-red-600/20 text-red-500 border border-red-500/30 font-bold py-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-transform">
+            <span class="material-symbols-outlined">logout</span>
+            Sign Out
+        </a>
+    </div>
+
+</body>
+</html>

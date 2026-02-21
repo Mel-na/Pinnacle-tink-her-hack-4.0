@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Nearby Safe Places</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+    <script>
+        tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary": "#13ecda", "background-dark": "#0A121E", "card-dark": "#152535" }, fontFamily: { "display": ["Inter", "sans-serif"] } } } }
+    </script>
+    <style> body { font-family: 'Inter', sans-serif; background-color: #0A121E; } </style>
+</head>
+
+<body class="text-slate-100 min-h-screen flex flex-col font-display">
+    <header class="sticky top-0 z-50 bg-background-dark/80 backdrop-blur-md border-b border-white/5 px-4 py-4">
+        <div class="flex items-center justify-between max-w-md mx-auto w-full">
+            <button onclick="history.back()" class="flex items-center justify-center size-12 rounded-full bg-card-dark text-white active:scale-95 transition-transform">
+                <span class="material-symbols-outlined">arrow_back_ios_new</span>
+            </button>
+            <h1 class="text-xl font-bold tracking-tight text-center flex-1">Safe Places Near <span class="text-primary" id="dest-display">You</span></h1>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-md mx-auto w-full px-4 pt-6 pb-24">
+        
+        <div class="space-y-4" id="placesContainer">
+            <p class="text-center text-primary animate-pulse mt-10" id="loadingText">Scanning geographic data for safe zones in your destination...</p>
+        </div>
+
+        <div class="mt-8 mb-4">
+            <button onclick="alert('Emergency alert and live location sent successfully to active Guardians!');" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-3 text-xl shadow-xl shadow-red-600/30 active:scale-[0.97] transition-all">
+                ASTRASHE SOS
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Get the specific destination passed from the Safe Routes page
+        const urlParams = new URLSearchParams(window.location.search);
+        let destination = urlParams.get('destination');
+        
+        // Fallback if no destination was passed
+        if (!destination) {
+            destination = "Kerala";
+        }
+        
+        document.getElementById('dest-display').innerText = destination;
+        const container = document.getElementById('placesContainer');
+
+        // Search OpenStreetMap specifically for Police Stations in the targeted city
+        const query = `police station in ${encodeURIComponent(destination)}, Kerala`;
+        
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=4`)
+            .then(res => res.json())
+            .then(data => {
+                container.innerHTML = ''; // Clear loading text
+
+                if (data.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center text-slate-400">
+                            <p>No registered police stations found exactly in ${destination} via OpenStreetMap.</p>
+                            <p class="mt-2 text-sm text-primary">Please trigger the Astrashe SOS to connect with central dispatch.</p>
+                        </div>`;
+                    return;
+                }
+
+                // Render real data cards
+                data.forEach((place, index) => {
+                    let borderClass = index === 0 ? "border-primary/50 shadow-[0_0_15px_rgba(19,236,218,0.2)]" : "border-white/5";
+                    let bgClass = index === 0 ? "bg-primary text-background-dark" : "bg-white/5 text-primary border border-primary/30";
+                    let displayName = place.name ? place.name : "Local Police Station";
+                    
+                    let card = `
+                        <div class="place-card bg-card-dark rounded-2xl p-5 border ${borderClass}">
+                            <h3 class="text-lg font-bold leading-tight">${displayName}</h3>
+                            <p class="text-xs text-slate-400 mt-1 truncate">${place.display_name}</p>
+                            <button onclick="window.open('https://maps.google.com/?q=${place.lat},${place.lon}')" class="w-full font-black py-4 rounded-xl mt-4 ${bgClass} active:scale-95 transition-transform">
+                                NAVIGATE NOW
+                            </button>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                });
+            })
+            .catch(err => {
+                container.innerHTML = '<p class="text-center text-red-400">Error connecting to geographic database.</p>';
+            });
+    </script>
+</body>
+</html>
